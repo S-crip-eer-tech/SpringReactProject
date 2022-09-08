@@ -6,7 +6,7 @@ function Header() {
     <header>
         <div className="logo-container">
             <img src= {logo} alt="DSMeta" />
-            <h1>DSMeta</h1>
+            <h1>Projeto React Spring</h1>
             <p>
                 Desenvolvido por
                 <a href="https://www.linkedin.com/in/reynaldo-carballar-133471214"> @ReynaldoCosta</a>
