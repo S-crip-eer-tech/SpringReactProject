@@ -33,14 +33,6 @@ public class Sale {
 		this.id = id;
 	}
 
-	public String getSellerName() {
-		return sellerName;
-	}
-
-	public void setSellerName(String sellerName) {
-		this.sellerName = sellerName;
-	}
-
 	public Integer getVisited() {
 		return visited;
 	}
@@ -71,6 +63,13 @@ public class Sale {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
 	}
 	
 	

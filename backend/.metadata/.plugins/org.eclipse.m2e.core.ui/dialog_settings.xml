@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\ProjetoReactSpring\dsmeta\backend"/>
 			<item value="C:\ProjetoReactSpring\dsmeta]"/>
 			<item value="C:\ProjetoReactSpring"/>
 		</list>
