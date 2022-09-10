@@ -4,24 +4,29 @@ import "react-datepicker/dist/react-datepicker.css"
 import './styles.css'
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { BASE_URL } from "../../util/request"
+import { Sale } from "../../models/sale"
 
 
 
 function SalesCard() {
-    
+
     const max = new Date()
     const min = new Date(new Date().setDate(new Date().getDate() - 365))
 
     const [minDate, setMinDate] = useState(min)
     const [maxDate, setMaxDate] = useState(max)
-    
-    useEffect(()=> {
-        axios.get("http://localhost:8080/sales")
-            .then(response =>{
-                console.log(response.data)
+
+    const [sales, setSales] = useState<Sale[]>([])
+
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales`)
+            .then(response => {
+                setSales(response.data.content)
             })
     }, [])
-    
+
     return (
         <div className="react-style-card">
             <div>
@@ -57,58 +62,25 @@ function SalesCard() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="show-992">1</td>
-                            <td className="show-576">01/02/2019</td>
-                            <td>Anakin</td>
-                            <td className="show-992">33</td>
-                            <td className="show-992">30</td>
-                            <td>R$ 553000.00</td>
-                            <td>
-                                <div className="btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="show-992">1</td>
-                            <td className="show-576">01/02/2019</td>
-                            <td>Anakin</td>
-                            <td className="show-992">33</td>
-                            <td className="show-992">30</td>
-                            <td>R$ 553000.00</td>
-                            <td>
-                                <div className="btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="show-992">1</td>
-                            <td className="show-576">01/02/2019</td>
-                            <td>Anakin</td>
-                            <td className="show-992">33</td>
-                            <td className="show-992">30</td>
-                            <td>R$ 553000.00</td>
-                            <td>
-                                <div className="btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="show-992">1</td>
-                            <td className="show-576">01/02/2019</td>
-                            <td>Anakin</td>
-                            <td className="show-992">33</td>
-                            <td className="show-992">30</td>
-                            <td>R$ 553000.00</td>
-                            <td>
-                                <div className="btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
+                        {
+                            sales.map(sale => {
+                                return (
+                                    <tr key={sale.id}>
+                                        <td className="show-992">{sale.id}</td>
+                                        <td className="show-576">{new Date(sale.date).toLocaleDateString()}</td>
+                                        <td>{sale.sellerName}</td>
+                                        <td className="show-992">{sale.visited}</td>
+                                        <td className="show-992">{sale.deals}</td>
+                                        <td>R$ {sale.amount.toFixed(2)}</td>
+                                        <td>
+                                            <div className="btn-container">
+                                                <NotificationButton />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
