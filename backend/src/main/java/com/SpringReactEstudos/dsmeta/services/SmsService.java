@@ -1,6 +1,9 @@
 package com.SpringReactEstudos.dsmeta.services;
 
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -35,10 +38,10 @@ public class SmsService {
 		
 		Sale sale = saleRepository.findById(saleId).get();
 		
-		String date = sale.getDate().getMonthValue() + "/" + sale.getDate().getYear();
+		LocalDate date = sale.getDate().minusDays(1);
 		
-		String msg = String.format("O vendedor %s foi destaque em %s com um total de R$ %.2f", sale.getSellerName(), date, sale.getAmount());
-		
+		String msg = "O vendedor " + sale.getSellerName() + " foi destaque em " + date
+			    + " com um total de R$ " + new DecimalFormat("#,##0.00").format(sale.getAmount());		
 		Twilio.init(twilioSid, twilioKey);
 	
 		PhoneNumber to = new PhoneNumber(twilioPhoneTo);
